@@ -28,7 +28,7 @@
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 Leaderboard <a name="about-project"></a>
+# 📖 MMDB <a name="about-project"></a>
 
 **Microverse Movie DataBase** is a project made to like, comment and reserve movies in the database, following the prerequisites of Microverse's JavaScript's capstone project.
 
@@ -81,7 +81,7 @@ Clone this repository to your desired folder and install required dependencies:
 
 ```sh
   cd my-folder
-  git clone github.com/redmarverick/Movie-rent.git
+  git clone github.com/redmarverick/MMDB.git
 
   npm init -y
   npm install webpack webpack-cli --save-dev
@@ -136,7 +136,7 @@ To run tests, run the following command:
 
 Contributions, issues, and feature requests are welcome!
 
-Feel free to check the [issues page](https://github.com/redmarverick/Leaderboard/issues).
+Feel free to check the [issues page](https://github.com/redmarverick/MMDB/issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
