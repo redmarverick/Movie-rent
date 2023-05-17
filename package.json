@@ -1,5 +1,5 @@
 {
-  "name": "leaderboard",
+  "name": "MMDB",
   "version": "1.0.0",
   "description": "<a name=\"readme-top\"></a>\r <div align=\"center\">\r   <h1><b>Leaderboard</b></h1>\r </div>",
   "main": "webpack.config.js",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/redmarverick/Leaderboard.git"
+    "url": "git+https://github.com/redmarverick/MMDB.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/redmarverick/Leaderboard/issues"
+    "url": "https://github.com/redmarverick/MMDB/issues"
   },
-  "homepage": "https://github.com/redmarverick/Leaderboard#readme",
+  "homepage": "https://github.com/redmarverick/MMDB#readme",
   "devDependencies": {
     "babel-eslint": "^10.1.0",
     "css-loader": "^6.7.3",
