@@ -1,3 +1,4 @@
+let index = 0;
 function toggleLike(itemId) {
     const heartIcon = document.getElementById(itemId + '-heart');
     const likeCount = document.getElementById(itemId + '-likes');
@@ -33,7 +34,9 @@ async function fetchMovieData(movieId) {
 // Function to create movie elements
 function createMovieElement(movieData) {
   const movieElement = document.createElement('div');
-  movieElement.id = `item${movieIds.length + 1}`;
+  const moviesContainer = document.getElementById('moviesContainer');
+index = moviesContainer.childElementCount;
+  movieElement.id = `item${index + 1}`;
   movieElement.className = 'movie-item flex flex-col items-center mx-4 my-4 justify-between';
 
   const imgElement = document.createElement('img');
@@ -53,13 +56,13 @@ function createMovieElement(movieData) {
   const heartIconElement = document.createElement('span');
   heartIconElement.className = 'movie-heart-icon text-red-500 mr-1';
   const heartIcon = document.createElement('i');
-  heartIcon.id = `item${movieIds.length + 1}-heart`;
+  heartIcon.id = `item${index + 1}-heart`;
   heartIcon.className = 'far fa-heart';
   heartIconElement.appendChild(heartIcon);
   likesElement.appendChild(heartIconElement);
 
   const likesCountElement = document.createElement('span');
-  likesCountElement.id = `item${movieIds.length + 1}-likes`;
+  likesCountElement.id = `item${index + 1}-likes`;
   likesCountElement.textContent = '0';
   likesElement.appendChild(likesCountElement);
   movieElement.appendChild(likesElement);
@@ -78,6 +81,8 @@ function createMovieElement(movieData) {
   buttonContainer.appendChild(reservationsButton);
 
   movieElement.appendChild(buttonContainer);
+
+  heartIcon.addEventListener('click', () => toggleLike(movieElement.id));
 
   return movieElement;
 }
