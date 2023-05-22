@@ -1,24 +1,24 @@
 let index = 0;
 function toggleLike(itemId) {
-    const heartIcon = document.getElementById(itemId + '-heart');
-    const likeCount = document.getElementById(itemId + '-likes');
+  const heartIcon = document.getElementById(`${itemId}-heart`);
+  const likeCount = document.getElementById(`${itemId}-likes`);
 
-    // Check if the item is liked
-    const isLiked = heartIcon.classList.contains('fas');
+  // Check if the item is liked
+  const isLiked = heartIcon.classList.contains('fas');
 
-    if (isLiked) {
-      heartIcon.classList.remove('fas');
-      heartIcon.classList.add('far');
-      likeCount.textContent = parseInt(likeCount.textContent) - 1;
-    } else {
-      heartIcon.classList.remove('far');
-      heartIcon.classList.add('fas');
-      likeCount.textContent = parseInt(likeCount.textContent) + 1;
-    }
+  if (isLiked) {
+    heartIcon.classList.remove('fas');
+    heartIcon.classList.add('far');
+    likeCount.textContent = parseInt(likeCount.textContent, 10) - 1;
+  } else {
+    heartIcon.classList.remove('far');
+    heartIcon.classList.add('fas');
+    likeCount.textContent = parseInt(likeCount.textContent, 10) + 1;
   }
+}
 
 // List of movie IDs
-let movieIds = ['169', '82', '431'];
+const movieIds = ['169', '82', '431'];
 
 // Function to fetch movie data from TVmaze API
 async function fetchMovieData(movieId) {
@@ -28,6 +28,7 @@ async function fetchMovieData(movieId) {
     return data;
   } catch (error) {
     console.log('Error:', error);
+    throw error; // Re-throw the error to reject the promise
   }
 }
 
@@ -35,7 +36,7 @@ async function fetchMovieData(movieId) {
 function createMovieElement(movieData) {
   const movieElement = document.createElement('div');
   const moviesContainer = document.getElementById('moviesContainer');
-index = moviesContainer.childElementCount;
+  index = moviesContainer.childElementCount;
   movieElement.id = `item${index + 1}`;
   movieElement.className = 'movie-item flex flex-col items-center mx-4 my-4 justify-between';
 
@@ -103,5 +104,3 @@ function updateMovieDetails(movieId) {
 movieIds.forEach((movieId) => {
   updateMovieDetails(movieId);
 });
-
-
