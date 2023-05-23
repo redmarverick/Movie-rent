@@ -1,4 +1,4 @@
-const btn = document.querySelectorAll('.popup-trigger');
+const btn = document.querySelectorAll('.movie-button mr-2');
 const modal = document.getElementById('popup-container');
 for (let i = 0; i < btn.length; i += 1) {
   btn[i].addEventListener('click', () => {
