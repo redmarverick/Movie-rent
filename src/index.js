@@ -75,7 +75,8 @@ function createMovieElement(movieData) {
   commentsButton.className = 'movie-button mr-2';
   commentsButton.textContent = 'Comments';
   buttonContainer.appendChild(commentsButton);
-  
+  heartIcon.addEventListener('click', () => togglePopup(popup.js));
+
   const popupWin = document.createElement('div');
   popupWin.className = 'popup-container';
 
