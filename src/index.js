@@ -75,12 +75,15 @@ function createMovieElement(movieData) {
   commentsButton.className = 'movie-button mr-2';
   commentsButton.textContent = 'Comments';
   buttonContainer.appendChild(commentsButton);
+  
+  const popupWin = document.createElement('div');
+  popupWin.className = 'popup-container';
 
   const reservationsButton = document.createElement('button');
   reservationsButton.className = 'movie-button';
   reservationsButton.textContent = 'Reservations';
   buttonContainer.appendChild(reservationsButton);
-
+  
   movieElement.appendChild(buttonContainer);
 
   heartIcon.addEventListener('click', () => toggleLike(movieElement.id));
