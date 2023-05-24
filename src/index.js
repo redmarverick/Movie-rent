@@ -78,6 +78,8 @@ function createMovieElement(movieData) {
   commentsButton.textContent = 'Comments';
   buttonContainer.appendChild(commentsButton);
   commentsButton.addEventListener('click', () => popupWins());
+  
+  movieElement.appendChild(buttonContainer);
 
   heartIcon.addEventListener('click', () => toggleLike(movieElement.id));
 
