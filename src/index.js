@@ -1,8 +1,8 @@
 import { createMovieElement } from './movieUtils.js';
 
-const moviesData = {
+export const moviesData = {
   movieIndex: ['169', '82', '431'],
-  likes: [0, 0, 0],
+  likes: [],
 };
 
 const appId = 's7btJtYhBZ65macF6zS3';
