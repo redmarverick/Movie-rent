@@ -1,8 +1,10 @@
-const btn = document.querySelectorAll('.movie-button mr-2');
-const modal = document.getElementsByClassName('popup-container');
-for (let i = 0; i < btn.length; i += 1) {
-  btn[i].addEventListener('click', () => {
-    modal.innerHTML = `
+export const popupWins = () =>{
+  console.log("hello@!")
+  const btn = document.querySelectorAll('.movie-button mr-2');
+  const modal = document.getElementsByClassName('popup-container');
+  for (let i = 0; i < btn.length; i += 1) {
+    btn[i].addEventListener('click', () => {
+      modal.innerHTML = `
     <div class="modal-top">
 
         <span class="close" ><img src="./img/close-icon.png" /></span >
@@ -20,11 +22,12 @@ for (let i = 0; i < btn.length; i += 1) {
             <button aria-label="submit" type="submit" value="Submit" tabindex="19">Get in touch</button>
         </form>
     `;
-    const span = document.getElementsByClassName('close')[0];
-    modal.style.display = 'flex';
-    span.onclick = () => {
-      modal.style.display = 'none';
-      modal.innerHTML = '';
-    };
-  });
+      const span = document.getElementsByClassName('close')[0];
+      modal.style.display = 'flex';
+      span.onclick = () => {
+        modal.style.display = 'none';
+        modal.innerHTML = '';
+      };
+    });
+  }
 }

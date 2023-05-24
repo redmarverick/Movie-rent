@@ -1,5 +1,5 @@
-import 'index.css';
-import 'popup.js';
+import './index.css';
+import { popupWins } from './popup.js';
 let index = 0;
 function toggleLike(itemId) {
   const heartIcon = document.getElementById(`${itemId}-heart`);
@@ -77,7 +77,7 @@ function createMovieElement(movieData) {
   commentsButton.className = 'movie-button mr-2';
   commentsButton.textContent = 'Comments';
   buttonContainer.appendChild(commentsButton);
-  commentsButton.addEventListener('click', () => togglePopup(popup.js));
+  commentsButton.addEventListener('click', () => popupWins);
 
   const popupWin = document.createElement('div');
   popupWin.className = 'popup-container';
