@@ -1,34 +1,47 @@
-const moviesData = {
+import { createMovieElement } from './movieUtils.js';
+
+export const moviesData = {
   movieIndex: ['169', '82', '431'],
-  likes: [],
+  likes: [0,0,0],
 };
 
-let index = 0;
 const appId = 's7btJtYhBZ65macF6zS3';
 const baseUrl = "https://us-central1-involvement-api.cloudfunctions.net/capstoneApi";
 
-async function saveMoviesData() {
+async function saveMoviesData(movieId,value) {
   const url = `${baseUrl}/apps/${appId}/likes`;
 
   try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        item_id: moviesData.movieIndex,
-        likes: moviesData.likes,
-      }),
-    });
+    const index = moviesData.movieIndex.indexOf(movieId);
+    console.log(index);
+    if (index !== -1) {
+      let likesC = [];
+      let movieIdWa = [];
+      likesC[0] = moviesData.likes[index];
+      movieIdWa[0] = movieId;
+      console.log(movieId,' : ',moviesData.likes[index]);
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          item_id: movieIdWa,
+          likes: value,
+        }),
+      });
+      getMoviesData();
 
-    if (response.status === 201) {
-      console.log("Movies data saved successfully");
+      if (response.status === 201) {
+        console.log(`Movie ${movieId} data saved successfully`);
+      } else {
+        console.error(`Failed to save movie ${movieId} data. Status: ${response.status}`);
+      }
     } else {
-      console.error(`Failed to save movies data. Status: ${response.status}`);
+      console.error(`Movie ${movieId} not found in the movie index`);
     }
   } catch (error) {
-    console.error("Error saving movies data:", error);
+    console.error("Error saving movie data:", error);
   }
 }
 
@@ -41,13 +54,25 @@ async function getMoviesData() {
       const data = await response.json();
 
       // Update the existing likes in moviesData.likes
-      moviesData.likes = moviesData.movieIndex.map((movieId) => {
-        const item = data.find((item) => item.item_id === movieId);
-        return item ? item.likes : 0;
-      });
+      moviesData.likes = [0,0,0]; // Set initial likes count to 0
+
+      for (var i = 0; i < moviesData.movieIndex.length; i++) {
+        var movieId = moviesData.movieIndex[i];
+        var count = 0;
+      
+        data.forEach(function(item) {
+          for(let j=0; j<moviesData.movieIndex.length; j += 1)
+          {
+            if (item.item_id[j] === movieId) {
+              moviesData.likes[i] += item.likes;
+            }
+          }
+        });
+        //console.log(moviesData.movieIndex[i],' = ',moviesData.likes[i]);
+      }
+      
 
       console.log("Movies data retrieved successfully");
-      console.log(moviesData);
     } else {
       console.error(`Failed to get movies data. Status: ${response.status}`);
     }
@@ -62,19 +87,20 @@ async function toggleLike(itemId) {
   const movieId = itemId.substring(4);
   const movieIndex = moviesData.movieIndex.indexOf(movieId);
   const isLiked = heartIcon.classList.contains('fas');
-
+  let value = 0;
   if (isLiked) {
-    heartIcon.classList.remove('fas');
-    heartIcon.classList.add('far');
-    moviesData.likes[movieIndex]--;
+    moviesData.likes[movieIndex]++;
+    value = +1;
   } else {
     heartIcon.classList.remove('far');
     heartIcon.classList.add('fas');
+    console.log(moviesData.likes[movieIndex]);
     moviesData.likes[movieIndex]++;
+    console.log(moviesData.likes[movieIndex]);
+    value = +1;
   }
   likeCount.textContent = moviesData.likes[movieIndex];
-
-  await saveMoviesData();
+  await saveMoviesData(movieId,value);
 }
 
 async function fetchMovieData(movieId) {
@@ -88,67 +114,11 @@ async function fetchMovieData(movieId) {
   }
 }
 
-function createMovieElement(movieData, itemId) {
-  const movieElement = document.createElement('div');
-  const moviesContainer = document.getElementById('moviesContainer');
-  index = moviesContainer.childElementCount;
-  const movieId = moviesData.movieIndex[index];
-  movieElement.id = `item${movieId}`;
-  movieElement.className = 'movie-item flex flex-col items-center mx-4 my-4 justify-between';
-
-  const imgElement = document.createElement('img');
-  imgElement.src = movieData.image.medium;
-  imgElement.alt = movieData.name;
-  imgElement.className = 'movie-image w-1/2 rounded-md';
-  movieElement.appendChild(imgElement);
-
-  const titleElement = document.createElement('h2');
-  titleElement.textContent = movieData.name;
-  titleElement.className = 'movie-title mt-2 text-lg h-14 overflow-hidden';
-  movieElement.appendChild(titleElement);
-
-  const likesElement = document.createElement('div');
-  likesElement.className = 'movie-likes flex items-center mt-1';
-
-  const heartIconElement = document.createElement('span');
-  heartIconElement.className = 'movie-heart-icon text-red-500 mr-1';
-  const heartIcon = document.createElement('i');
-  heartIcon.id = `${itemId}-heart`;
-  heartIcon.className = 'far fa-heart';
-  heartIconElement.appendChild(heartIcon);
-  likesElement.appendChild(heartIconElement);
-
-  const likesCountElement = document.createElement('span');
-  likesCountElement.id = `${itemId}-likes`;
-  likesCountElement.textContent = moviesData.likes[index] !== undefined ? moviesData.likes[index].toString() : '';
-  likesElement.appendChild(likesCountElement);
-  movieElement.appendChild(likesElement);
-
-  const buttonContainer = document.createElement('div');
-  buttonContainer.className = 'movie-buttons mt-2 flex';
-
-  const commentsButton = document.createElement('button');
-  commentsButton.className = 'movie-button mr-2';
-  commentsButton.textContent = 'Comments';
-  buttonContainer.appendChild(commentsButton);
-
-  const reservationsButton = document.createElement('button');
-  reservationsButton.className = 'movie-button';
-  reservationsButton.textContent = 'Reservations';
-  buttonContainer.appendChild(reservationsButton);
-
-  movieElement.appendChild(buttonContainer);
-
-  heartIcon.addEventListener('click', () => toggleLike(itemId));
-
-  return movieElement;
-}
-
 function updateMovieDetails(movieId) {
   fetchMovieData(movieId)
     .then((data) => {
       const itemId = `item${movieId}`;
-      const movieElement = createMovieElement(data, itemId);
+      const movieElement = createMovieElement(data, itemId, toggleLike);
       const gridContainer = document.querySelector('.grid');
       gridContainer.appendChild(movieElement);
     })
@@ -158,11 +128,15 @@ function updateMovieDetails(movieId) {
 }
 
 async function initializeApp() {
-  await getMoviesData();
+  try {
+    await getMoviesData();
 
-  moviesData.movieIndex.forEach((movieId) => {
-    updateMovieDetails(movieId);
-  });
+    moviesData.movieIndex.forEach((movieId) => {
+      updateMovieDetails(movieId);
+    });
+  } catch (error) {
+    console.error("Error initializing app:", error);
+  }
 }
 
 initializeApp();
