@@ -1,6 +1,9 @@
-import { moviesData } from './index.js';
-
 let index = 0;
+
+const moviesData = {
+  movieIndex: ['169', '82', '431'],
+  likes: [0, 0, 0],
+};
 
 export function createMovieElement(movieData, itemId, toggleLike) {
   const movieElement = document.createElement('div');
