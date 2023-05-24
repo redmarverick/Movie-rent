@@ -1,7 +1,7 @@
 import { createMovieElement } from './movieUtils.js';
 
 export const moviesData = {
-  movieIndex: ['169', '82', '431'],
+  movieIndex: ['169', '82', '431', '1824','28276','41007','11538','38052','43031','15299'],
   likes: [],
 };
 
@@ -17,7 +17,7 @@ async function getMoviesData() {
       const data = await response.json();
 
       // Update the existing likes in moviesData.likes
-      moviesData.likes = [0, 0, 0]; // Set initial likes count to 0
+      moviesData.likes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; // Set initial likes count to 0
 
       for (let i = 0; i < moviesData.movieIndex.length; i += 1) {
         const movieId = moviesData.movieIndex[i];
@@ -30,10 +30,10 @@ async function getMoviesData() {
         });
       }
     } else {
-      throw new Error('error');
+      throw new Error('erro');
     }
   } catch (error) {
-    throw new Error('error');
+    throw new Error('erro');
   }
 }
 
@@ -59,10 +59,10 @@ async function saveMoviesData(movieId, value) {
       });
       getMoviesData();
     } else {
-      throw new Error('error');
+      throw new Error('erro');
     }
   } catch (error) {
-    throw new Error('error');
+    throw new Error('erro');
   }
 }
 
@@ -97,7 +97,7 @@ function updateMovieDetails(movieId) {
     .then((data) => {
       const itemId = `item${movieId}`;
       const movieElement = createMovieElement(data, itemId, toggleLike);
-      const gridContainer = document.querySelector('.grid');
+      const gridContainer = document.getElementById('moviesContainer');
       gridContainer.appendChild(movieElement);
     })
     .catch((error) => {
