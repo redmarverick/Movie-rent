@@ -7,7 +7,7 @@ export function createMovieElement(movieData, itemId, toggleLike) {
   const moviesContainer = document.getElementById('moviesContainer');
   index = moviesContainer.childElementCount;
   const movieLink = document.getElementById('moviesLink');
-  movieLink.textContent = `Movies (${index+1})`;
+  movieLink.textContent = `Movies (${index + 1})`;
   const movieId = moviesData.movieIndex[index];
   movieElement.id = `item${movieId}`;
   movieElement.className = 'movie-card w-64 p-4 bg-gray-800 text-white rounded';
