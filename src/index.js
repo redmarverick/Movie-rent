@@ -1,3 +1,5 @@
+import 'index.css';
+import 'popup.js';
 let index = 0;
 function toggleLike(itemId) {
   const heartIcon = document.getElementById(`${itemId}-heart`);
