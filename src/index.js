@@ -77,17 +77,7 @@ function createMovieElement(movieData) {
   commentsButton.className = 'movie-button mr-2';
   commentsButton.textContent = 'Comments';
   buttonContainer.appendChild(commentsButton);
-  commentsButton.addEventListener('click', () => popupWins);
-
-  const popupWin = document.createElement('div');
-  popupWin.className = 'popup-container';
-
-  const reservationsButton = document.createElement('button');
-  reservationsButton.className = 'movie-button';
-  reservationsButton.textContent = 'Reservations';
-  buttonContainer.appendChild(reservationsButton);
-  
-  movieElement.appendChild(buttonContainer);
+  commentsButton.addEventListener('click', () => popupWins());
 
   heartIcon.addEventListener('click', () => toggleLike(movieElement.id));
 

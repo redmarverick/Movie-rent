@@ -1,14 +1,16 @@
 export const popupWins = () =>{
-  console.log("hello@!")
-  const btn = document.querySelectorAll('.movie-button mr-2');
-  const modal = document.getElementsByClassName('popup-container');
+  const btn = document.querySelectorAll('.movie-button.mr-2');
+  const modal = document.createElement('div');
+  modal.className = 'popup-container';
+
   for (let i = 0; i < btn.length; i += 1) {
+    console.log("in loop[@!")
     btn[i].addEventListener('click', () => {
       modal.innerHTML = `
     <div class="modal-top">
 
         <span class="close" ><img src="./img/close-icon.png" /></span >
-        <h1>${data[i].title}</h1>
+        <h1>title</h1>
     </div>
 
             <h2>Comments</h2>
