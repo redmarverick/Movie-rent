@@ -1,7 +1,7 @@
 import { createMovieElement } from './movieUtils.js';
 
 export const moviesData = {
-  movieIndex: ['169', '82', '431', '1824','28276','41007','11538','38052','43031','15299'],
+  movieIndex: ['169', '82', '431', '1824', '28276', '41007', '11538', '38052', '43031', '15299'],
   likes: [],
 };
 
