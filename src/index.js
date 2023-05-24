@@ -30,10 +30,10 @@ async function getMoviesData() {
         });
       }
     } else {
-      throw new Error('erro');
+      throw new Error('error');
     }
   } catch (error) {
-    throw new Error('erro');
+    throw new Error('error');
   }
 }
 
@@ -59,10 +59,10 @@ async function saveMoviesData(movieId, value) {
       });
       getMoviesData();
     } else {
-      throw new Error('erro');
+      throw new Error('error');
     }
   } catch (error) {
-    throw new Error('erro');
+    throw new Error('error');
   }
 }
 
