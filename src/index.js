@@ -77,7 +77,7 @@ function createMovieElement(movieData) {
   commentsButton.className = 'movie-button mr-2';
   commentsButton.textContent = 'Comments';
   buttonContainer.appendChild(commentsButton);
-  commentsButton.addEventListener('click', () => popupWins());
+  commentsButton.addEventListener('click', () => popupWins(moviesContainer));
   
   movieElement.appendChild(buttonContainer);
 
