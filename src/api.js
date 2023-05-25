@@ -1,4 +1,4 @@
-const BASE_URL = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/';
+const BASE_URL = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/';
 const POST_ID = 's7btJtYhBZ65macF6zS3';
 const URL = `${BASE_URL}${POST_ID}/scores/`;
 
