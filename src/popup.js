@@ -1,27 +1,5 @@
-const BASE_URL = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/';
-const POST_ID = 's7btJtYhBZ65macF6zS3';
-const URL = `${BASE_URL}${POST_ID}/scores/`;
+import {postComment, getComment } from './api.js';
 
-// POST action: get scores from users
-const postComment = async (data) => {
-  const response = await fetch(URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  });
-
-  const results = await response.json();
-  return results.result;
-};
-
-// GET action: get scores from API
-const getComment = async () => {
-  const response = await fetch(URL);
-  const results = await response.json();
-  return results.result;
-};
 
 export const popupWins = (root) => {
   const btn = document.querySelectorAll('.movie-button.mr-2');
@@ -49,16 +27,15 @@ export const popupWins = (root) => {
         </form>
     `;
 
-      const span = document.getElementsByClassName('close-icon');
+    root.appendChild(modal);
+      const span = document.querySelector('.close-icon');
 
       modal.style.display = 'flex';
 
       span.onclick = () => {
-        debugger
         console.log("enter click span")
         modal.style.display = 'none';
         modal.innerHTML = '';
       };
-      root.appendChild(modal);
   }
 }
