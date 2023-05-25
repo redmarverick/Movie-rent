@@ -5,7 +5,6 @@ export const popupWins = (root) => {
   modal.className = 'popup-container';
 
   btn.forEach((button) => {
-    button.addEventListener('click', () => {
       modal.innerHTML = `
         <div class="modal-top">
           <span class="close-icon bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"></span >
@@ -23,12 +22,9 @@ export const popupWins = (root) => {
         </form>
       `;
   
-      console.log("start click span");
       const span = document.getElementsByClassName('close-icon');
-      console.log("found span");
   
       modal.style.display = 'flex';
-      console.log("style span");
   
       span.onclick = () => {
         debugger;
@@ -37,7 +33,6 @@ export const popupWins = (root) => {
         modal.innerHTML = '';
       };
       root.appendChild(modal);
-    });
   });
   
 }
