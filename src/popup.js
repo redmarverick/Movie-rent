@@ -1,6 +1,7 @@
 import {postComment, getComment } from './api.js';
 
 
+
 export const popupWins = (root) => {
   const btn = document.querySelectorAll('.movie-button.mr-2');
   const modal = document.createElement('div');
@@ -23,7 +24,7 @@ export const popupWins = (root) => {
             <input aria-label="name" id="name" type="text" placeholder="Your name" maxlength="30" name="name" tabindex="16" required>
             <label for="comments" aria-label="comments">comments*</label>
             <textarea aria-label="comments" id="comments" placeholder="Enter comments here" maxlength="500" name="message" required tabindex="18"></textarea>
-            <button aria-label="submit" type="submit" value="Submit" tabindex="19">Get in touch</button>
+            <button aria-label="submit" type="submit" value="Submit" tabindex="19">Comment</button>
         </form>
     `;
 
@@ -39,3 +40,41 @@ export const popupWins = (root) => {
       };
   }
 }
+
+const createComment = () => {
+  const form = document.getElementById('comment-form');
+  const formName = document.getElementById('name');
+  const formComment = document.getElementById('comments');
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const newName = formName.value;
+    const newComment = Number(formScore.value);
+    const comment_obj = {
+      username: newName,
+      comment: newComment,
+    };
+    formName.value = '';
+    formComment.value = '';
+    postComment(comment_obj);
+  });
+};
+
+createComment();
+
+const getComments = () => {
+  const form = document.getElementById('comment-form');
+  const commentList = document.getElementsByClassName('comment-container');
+  form.addEventListener('click', async (event) => {
+    event.preventDefault();
+    const refreshNewComment = await getComment();
+    commentList.innerHTML = ''; // clear the list before repopulating
+    refreshNewComment.sort((a, b) => a.index - b.index); // sort scores in descending order
+    refreshNewComment.forEach((rnc) => {
+      const newCommentx = document.createElement('li');
+      newScore.innerHTML = `${rnc.user}: ${rnc.score}`;
+      commentList.appendChild(newCommentx);
+    });
+  });
+};
+
+getComments();
