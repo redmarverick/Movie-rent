@@ -1,5 +1,13 @@
 import { postComment, getComment } from './api.js';
+import countComments from './commentCounter.js';
 
+
+const updateCount = () => {
+  const commentList = document.querySelector('.comment-container');
+  const title = document.getElementById('comment-title');
+
+  title.textContent = `Comments (${countComments(commentList)})`;
+}
 const getComments = async (itemID) => {
   const commentList = document.querySelector('.comment-container');
   let refreshNewComment = await getComment(itemID);
@@ -8,9 +16,16 @@ const getComments = async (itemID) => {
       commentList.innerHTML = ''; // clear the list before repopulating
       refreshNewComment.forEach((rnc) => {
         const newCommentx = document.createElement('li');
+
+        newCommentx.className = 'oneComment';
         newCommentx.innerHTML = `${rnc.username}: ${rnc.comment}`;
         commentList.appendChild(newCommentx);
+
+        updateCount();
       });
+    }
+    else {
+      title.textContent = 'Comments (0)';
     }
   } catch (error) {
     refreshNewComment = [];
@@ -49,9 +64,10 @@ const popupWins = (root, title, movieElementId) => {
           <h1>${title}</h1>
         </div>
 
-        <h2>Comments</h2>
 
-        <div class="comment-container"></div>
+        <h2 id="comment-title"></h2>
+
+        <ul class="comment-container"></ul>
         <form method="POST" id="comment-form">
           <label for="name" aria-label="name">name*</label>
           <input aria-label="name" id="name" type="text" placeholder="Your name" maxlength="30" name="name" tabindex="16" required>
@@ -63,6 +79,7 @@ const popupWins = (root, title, movieElementId) => {
     `;
 
   root.appendChild(modal);
+  updateCount();
   const span = document.querySelector('.close-icon');
 
   modal.style.display = 'flex';
