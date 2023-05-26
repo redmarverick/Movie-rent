@@ -8,6 +8,7 @@ export const popupWins = (root) => {
     modal.className = 'popup-container';
 
     modal.innerHTML = `
+    modal.innerHTML = `
     <div class="modal-top">
       <span class="close-icon bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">×</span>
       <h1 class="text-xl font-bold">Title</h1>
@@ -25,13 +26,20 @@ export const popupWins = (root) => {
 
   root.appendChild(modal);
   const span = modal.querySelector('.close-icon');
+    root.appendChild(modal);
+    const span = document.querySelector('.close-icon');
 
   modal.style.display = 'flex';
+    modal.style.display = 'flex';
 
   span.onclick = () => {
     modal.style.display = 'none';
     modal.innerHTML = '';
   };
+    span.onclick = () => {
+      modal.style.display = 'none';
+      modal.innerHTML = '';
+    };
   }
 };
 
@@ -44,10 +52,15 @@ const createComment = () => {
     const newName = formName.value;
     const newComment = formComment.value;
     const commentObj = {
+    const newComment = Number(formName.value);
+    const commentObj = {
       username: newName,
       comment: newComment,
     };
     form.reset();
+    postComment(commentObj);
+    formName.value = '';
+    formComment.value = '';
     postComment(commentObj);
   });
 };
@@ -62,6 +75,17 @@ const getComments = () => {
       const newComment = document.createElement('li');
       newComment.innerHTML = `${comment.user}: ${comment.score}`;
       commentList.appendChild(newComment);
+  const form = document.getElementById('comment-form');
+  const commentList = document.getElementsByClassName('comment-container');
+  form.addEventListener('click', async (event) => {
+    event.preventDefault();
+    const refreshNewComment = await getComment();
+    commentList.innerHTML = ''; // clear the list before repopulating
+    refreshNewComment.sort((a, b) => a.index - b.index); // sort scores in descending order
+    refreshNewComment.forEach((rnc) => {
+      const newCommentx = document.createElement('li');
+      form.innerHTML = `${rnc.user}: ${rnc.score}`;
+      commentList.appendChild(newCommentx);
     });
   };
 
