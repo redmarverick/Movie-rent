@@ -57,6 +57,7 @@ export function createMovieElement(movieData, itemId, toggleLike) {
   const commentsButton = document.createElement('button');
   commentsButton.className = 'bg-blue-800 text-white py-2 px-4 rounded-md mt-2 mx-auto';
   commentsButton.textContent = 'Comments';
+  commentsButton.id = `comments-${itemId}`;
   buttonContainer.appendChild(commentsButton);
   commentsButton.addEventListener('click', () => popupWins(moviesContainer));
 
