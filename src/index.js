@@ -1,118 +1,105 @@
-import { createMovieElement } from './movieUtils.js';
 import './index.css';
+import popupWins from './popup.js';
 
-export const moviesData = {
-  movieIndex: ['169', '82', '431', '1824', '28276', '41007', '11538', '38052', '43031', '15299'],
-  likes: [],
-};
-
-const appId = 's7btJtYhBZ65macF6zS3';
-const baseUrl = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi';
-
-async function getMoviesData() {
-  const url = `${baseUrl}/apps/${appId}/likes`;
-
-  try {
-    const response = await fetch(url);
-    if (response.ok) {
-      const data = await response.json();
-
-      // Update the existing likes in moviesData.likes
-      moviesData.likes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; // Set initial likes count to 0
-
-      for (let i = 0; i < moviesData.movieIndex.length; i += 1) {
-        const movieId = moviesData.movieIndex[i];
-        data.forEach((item) => {
-          for (let j = 0; j < moviesData.movieIndex.length; j += 1) {
-            if (item.item_id[j] === movieId) {
-              moviesData.likes[i] += item.likes;
-            }
-          }
-        });
-      }
-    } else {
-      throw new Error('erro');
-    }
-  } catch (error) {
-    throw new Error('erro');
-  }
-}
-
-async function saveMoviesData(movieId, value) {
-  const url = `${baseUrl}/apps/${appId}/likes`;
-
-  try {
-    const index = moviesData.movieIndex.indexOf(movieId);
-    if (index !== -1) {
-      const likesC = [];
-      const movieIdWa = [];
-      likesC[0] = moviesData.likes[index];
-      movieIdWa[0] = movieId;
-      await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          item_id: movieIdWa,
-          likes: value,
-        }),
-      });
-      getMoviesData();
-    } else {
-      throw new Error('erro');
-    }
-  } catch (error) {
-    throw new Error('erro');
-  }
-}
-
-async function toggleLike(itemId) {
+let index = 0;
+function toggleLike(itemId) {
   const heartIcon = document.getElementById(`${itemId}-heart`);
   const likeCount = document.getElementById(`${itemId}-likes`);
-  const movieId = itemId.substring(4);
-  const movieIndex = moviesData.movieIndex.indexOf(movieId);
+
+  // Check if the item is liked
   const isLiked = heartIcon.classList.contains('fas');
-  let value = 0;
+
   if (isLiked) {
-    moviesData.likes[movieIndex] += 1;
-    value = +1;
+    heartIcon.classList.remove('fas');
+    heartIcon.classList.add('far');
+    likeCount.textContent = parseInt(likeCount.textContent, 10) - 1;
   } else {
     heartIcon.classList.remove('far');
     heartIcon.classList.add('fas');
-    moviesData.likes[movieIndex] += 1;
-    value = +1;
+    likeCount.textContent = parseInt(likeCount.textContent, 10) + 1;
   }
-  likeCount.textContent = moviesData.likes[movieIndex];
-  await saveMoviesData(movieId, value);
 }
 
+// List of movie IDs
+const movieIds = ['169', '82', '431'];
+
+// Function to fetch movie data from TVmaze API
 async function fetchMovieData(movieId) {
-  const response = await fetch(`https://api.tvmaze.com/shows/${movieId}`);
-  const data = await response.json();
-  return data;
+  try {
+    const response = await fetch(`https://api.tvmaze.com/shows/${movieId}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log('Error:', error);
+    throw error; // Re-throw the error to reject the promise
+  }
 }
 
+// Function to create movie elements
+function createMovieElement(movieData) {
+  const movieElement = document.createElement('div');
+  const moviesContainer = document.getElementById('moviesContainer');
+  index = moviesContainer.childElementCount;
+  movieElement.id = `item${index + 1}`;
+  movieElement.className = 'movie-item flex flex-col items-center mx-4 my-4 justify-between';
+
+  const imgElement = document.createElement('img');
+  imgElement.src = movieData.image.medium;
+  imgElement.alt = movieData.name;
+  imgElement.className = 'movie-image w-1/2 rounded-md';
+  movieElement.appendChild(imgElement);
+
+  const titleElement = document.createElement('h2');
+  titleElement.textContent = movieData.name;
+  titleElement.className = 'movie-title mt-2 text-lg h-14 overflow-hidden';
+  movieElement.appendChild(titleElement);
+
+  const likesElement = document.createElement('div');
+  likesElement.className = 'movie-likes flex items-center mt-1';
+
+  const heartIconElement = document.createElement('span');
+  heartIconElement.className = 'movie-heart-icon text-red-500 mr-1';
+  const heartIcon = document.createElement('i');
+  heartIcon.id = `item${index + 1}-heart`;
+  heartIcon.className = 'far fa-heart';
+  heartIconElement.appendChild(heartIcon);
+  likesElement.appendChild(heartIconElement);
+
+  const likesCountElement = document.createElement('span');
+  likesCountElement.id = `item${index + 1}-likes`;
+  likesCountElement.textContent = '0';
+  likesElement.appendChild(likesCountElement);
+  movieElement.appendChild(likesElement);
+
+  const buttonContainer = document.createElement('div');
+  buttonContainer.className = 'movie-buttons mt-2 flex'; // Added 'flex' class for flex display
+
+  const commentsButton = document.createElement('button');
+  commentsButton.className = 'movie-button mr-2';
+  commentsButton.textContent = 'Comments';
+  buttonContainer.appendChild(commentsButton);
+  commentsButton.addEventListener('click', () => popupWins(moviesContainer, movieData.name, movieElement.id));
+
+  movieElement.appendChild(buttonContainer);
+
+  heartIcon.addEventListener('click', () => toggleLike(movieElement.id));
+
+  return movieElement;
+}
+
+// Function to update the movie details in the DOM
 function updateMovieDetails(movieId) {
   fetchMovieData(movieId)
     .then((data) => {
-      const itemId = `item${movieId}`;
-      const movieElement = createMovieElement(data, itemId, toggleLike);
-      const gridContainer = document.getElementById('moviesContainer');
+      const movieElement = createMovieElement(data);
+      const gridContainer = document.querySelector('.grid');
       gridContainer.appendChild(movieElement);
     })
     .catch((error) => {
-      throw error;
+      console.log('Error:', error);
     });
 }
 
-async function initializeApp() {
-  await getMoviesData();
-  moviesData.movieIndex.forEach((movieId) => {
-    updateMovieDetails(movieId);
-  });
-}
-
-initializeApp();
-
-export default { moviesData };
+movieIds.forEach((movieId) => {
+  updateMovieDetails(movieId);
+});
