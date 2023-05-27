@@ -1,16 +1,22 @@
-import 'movieUtils.js';
+import 'index.js';
 
-describe('like test', () => {
+describe('item count test', () => {
   let counter;
 
   beforeEach(() => {
-    document.body.innerHTML = '<div id="nav-counter"></div>';
+    counter = { showsTotal: 0 };
+    document.body.innerHTML = `
+    <nav class="space-x-4">
+      <a id="moviesLink" href="#" class="text-white">Movies</a>
+      <a href="#" class="text-white">Actors</a>
+      <a href="#" class="text-white">Directors</a>
+    </nav>
+  `;
   });
 
-  test('toggleLike to add movie likes', () => {
-    const movieLike = document.getElementById('item82-likes');
-    toggleLike('82');
+  test('item count check', () => {
+    const moveiItems = document.getElementById('moviesLink');
 
-    expect(movieLike.textContent).toBe('1');
+    expect(moveiItems.textContent).toBe('Movies(1)');
   });
 });
