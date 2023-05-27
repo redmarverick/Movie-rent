@@ -36,8 +36,6 @@ const getComments = async (itemID) => {
         }else{          
           title.textContent = 'Comments (0)';    
         }
-
-
       });
     }else {
       title.textContent = 'Comments (0)';
@@ -69,36 +67,40 @@ const createComment = (movieElementId) => {
 
 const popupWins = (root, title, img, genre, status, premiered, lang, movieElementId) => {
   if (root.querySelector('.popup-container')) { root.lastElementChild.remove(); }
+  document.body.classList.add('overflow-hidden');
+  const overlay = document.createElement('div');
+  overlay.className = 'fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-80 z-20';
   const modal = document.createElement('div');
-  modal.className = 'popup-container';
+  modal.className = 'popup-container fixed h-11/12 w-11/12 md:h-5/6 md:w-1/2 z-30 bg-gray-800 rounded-lg p-8 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col';
 
   modal.innerHTML = `
       <div>
         <div class="modal-top">
-          <span class="absolute top-4 right-4 text-white text-xl cursor-pointer close-icon bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"></span >
-          <h1>${title}</h1>
-          <img src="${img}" alt="${title}" class="mr-4 w-1/2">
+          <span class="absolute top-4 right-4 text-white text-xl cursor-pointer close-icon"><i class="fas fa-times" aria-hidden="true"></i></span >
+          <div class="text-white flex flex-col items-start">
+            <h1 class="text-2xl">${title}</h1>
+            <div class="my-4 flex items-start w-full">
+              <img class="md:h-72 h-64" src="${img}" alt="${title}" class="mr-4 w-">
+              <div class="ml-3 bg-gray-900 rounded-lg w-full md:h-72 h-64 p-4 overflow-auto">
+                <h2 id="comment-title"></h2>
+                <ul class="comment-container w-2/3 bg-gray-900 rounded-lg p-4 overflow-auto">
+                </ul>
+              </div>
+          </div>
           <p>Genre: ${genre}</p>
           <p>Status: ${status}</p>
           <p>Premiered: ${premiered}</p>
           <p>Language: ${lang}</p>
         </div>
-
-
-        <h2 id="comment-title"></h2>
-
-        <ul class="comment-container w-2/3 bg-gray-900 rounded-lg p-4 overflow-auto">
-        </ul>
-        <form method="POST" id="comment-form">
-          <label for="name" aria-label="name">name*</label>
-          <input aria-label="name" id="name" type="text" placeholder="Your name" maxlength="30" name="name" tabindex="16" required>
-          <label for="comments" aria-label="comments">comments*</label>
-          <textarea aria-label="comments" id="comments" placeholder="Enter comments here" maxlength="500" name="message" required tabindex="18"></textarea>
+        <form class="mt-4 w-full" method="POST" id="comment-form">
+          <label class="text-white text-lg mb-2 text-center flex items-center justify-center" for="name" aria-label="name">Add a comment:</label>
+          <input class="w-full text-black" aria-label="name" id="name" type="text" placeholder="Your name" maxlength="30" name="name" tabindex="16" required>
+          <textarea class="h-28 w-full mt-2 text-black" aria-label="comments" id="comments" placeholder="Enter comments here" maxlength="500" name="message" required tabindex="18"></textarea>
           <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 mt-4" aria-label="submit" type="submit" value="Submit" tabindex="19">Comment</button>
         </form>
       </div>
     `;
-
+  root.appendChild(overlay);
   root.appendChild(modal);
   updateCount();
   const span = document.querySelector('.close-icon');
@@ -107,6 +109,8 @@ const popupWins = (root, title, img, genre, status, premiered, lang, movieElemen
 
   span.onclick = () => {
     modal.style.display = 'none';
+    overlay.style.display = 'none';
+    document.body.classList.remove('overflow-hidden');
     modal.innerHTML = '';
   };
 
