@@ -124,7 +124,7 @@ To run tests, run the following command:
 👤 ** Jiachun Xiang **
 
 - GitHub: https://github.com/mpa-mxiang
-- LinkedIn: https://www.linkedin.com/in/jiachun-lily-xiang-1b197213a/
+- LinkedIn: https://linkedin.com/in/jiachunlilyxiang
 
 
 
