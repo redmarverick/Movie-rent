@@ -1,4 +1,2 @@
-const countComments = (container) => {
-    return container.length;
-  };
-  export default countComments;
+const countComments = (container) => container.length;
+export default countComments;

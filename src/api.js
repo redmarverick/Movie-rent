@@ -4,7 +4,6 @@ const URL = `${BASE_URL}${POST_ID}/comments`;
 
 // POST action: get scores from users
 export const postComment = async (data) => {
-  console.log(JSON.stringify(data));
   await fetch(URL, {
     method: 'POST',
     headers: {

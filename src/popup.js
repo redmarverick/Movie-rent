@@ -1,14 +1,14 @@
 import { postComment, getComment } from './api.js';
 import countComments from './commentCounter.js';
 
-
 const updateCount = () => {
   const commentList = document.querySelector('.comment-container');
   const title = document.getElementById('comment-title');
 
   title.textContent = `Comments (${countComments(commentList)})`;
-}
+};
 const getComments = async (itemID) => {
+  const title = document.getElementById('comment-title');
   const commentList = document.querySelector('.comment-container');
   let refreshNewComment = await getComment(itemID);
   try {
@@ -23,8 +23,7 @@ const getComments = async (itemID) => {
 
         updateCount();
       });
-    }
-    else {
+    } else {
       title.textContent = 'Comments (0)';
     }
   } catch (error) {
