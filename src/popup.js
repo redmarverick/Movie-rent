@@ -65,7 +65,7 @@ const popupWins = (root, title, img, genre, status, premiered, lang, movieElemen
   const overlay = document.createElement('div');
   overlay.className = 'fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-80 z-20';
   const modal = document.createElement('div');
-  modal.className = 'popup-container fixed h-11/12 w-11/12 md:h-5/6 md:w-1/2 z-30 bg-gray-800 rounded-lg p-8 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col';
+  modal.className = 'popup-container max-h-screen overflow-auto fixed h-max w-11/12 md:h-5/6 md:w-1/2 z-30 bg-gray-800 rounded-lg p-8 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col';
 
   modal.innerHTML = `
       <div>
@@ -73,7 +73,7 @@ const popupWins = (root, title, img, genre, status, premiered, lang, movieElemen
           <span class="absolute top-4 right-4 text-white text-xl cursor-pointer close-icon"><i class="fas fa-times" aria-hidden="true"></i></span >
           <div class="text-white flex flex-col items-start">
             <h1 class="text-2xl">${title}</h1>
-            <div class="my-4 flex items-start w-full">
+            <div class="my-3 flex items-start w-full">
               <img class="md:h-72 h-64" src="${img}" alt="${title}" class="mr-4 w-">
               <div class="ml-3 bg-gray-900 rounded-lg w-full md:h-72 h-64 p-4 overflow-auto">
                 <h2 id="comment-title"></h2>
