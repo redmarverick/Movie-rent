@@ -59,8 +59,8 @@ export function createMovieElement(movieData, itemId, toggleLike) {
   commentsButton.textContent = 'Comments';
   commentsButton.id = `comments-${itemId}`;
   buttonContainer.appendChild(commentsButton);
-  console.log(movieData)
-  commentsButton.addEventListener('click', () => popupWins(moviesContainer, movieData.name, movieData.name, movieElement.id));
+  console.log(movieData.image)
+  commentsButton.addEventListener('click', () => popupWins(moviesContainer, movieData.name, movieData.image.original, movieData.genre ,movieData.status,movieData.premiered,movieData.language, movieElement.id));
 
   movieElement.appendChild(buttonContainer);
 

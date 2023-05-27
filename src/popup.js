@@ -67,7 +67,7 @@ const createComment = (movieElementId) => {
   });
 };
 
-const popupWins = (root, title, img, movieElementId) => {
+const popupWins = (root, title, img, genre, status, premiered, lang, movieElementId) => {
   if (root.querySelector('.popup-container')) { root.lastElementChild.remove(); }
   const modal = document.createElement('div');
   modal.className = 'popup-container';
@@ -77,19 +77,24 @@ const popupWins = (root, title, img, movieElementId) => {
         <div class="modal-top">
           <span class="absolute top-4 right-4 text-white text-xl cursor-pointer close-icon bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"></span >
           <h1>${title}</h1>
-          <img>${img}</img>
+          <img src="${img}" alt="${title}" class="mr-4 w-1/2">
+          <p>Genre: ${genre}</p>
+          <p>Status: ${status}</p>
+          <p>Premiered: ${premiered}</p>
+          <p>Language: ${lang}</p>
         </div>
 
 
         <h2 id="comment-title"></h2>
 
-        <ul class="comment-container"></ul>
+        <ul class="comment-container w-2/3 bg-gray-900 rounded-lg p-4 overflow-auto">
+        </ul>
         <form method="POST" id="comment-form">
           <label for="name" aria-label="name">name*</label>
           <input aria-label="name" id="name" type="text" placeholder="Your name" maxlength="30" name="name" tabindex="16" required>
           <label for="comments" aria-label="comments">comments*</label>
           <textarea aria-label="comments" id="comments" placeholder="Enter comments here" maxlength="500" name="message" required tabindex="18"></textarea>
-          <button aria-label="submit" type="submit" value="Submit" tabindex="19">Comment</button>
+          <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 mt-4" aria-label="submit" type="submit" value="Submit" tabindex="19">Comment</button>
         </form>
       </div>
     `;
