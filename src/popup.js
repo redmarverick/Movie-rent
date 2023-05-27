@@ -1,41 +1,35 @@
 import { postComment, getComment } from './api.js';
 
-
 const updateCount = (comments) => {
-  const commentList = document.querySelector('.comment-container');
   const title = document.getElementById('comment-title');
-  if(comments === undefined) {
-    title.textContent = `Comments (0)`;
-  }else{
+  if (comments === undefined) {
+    title.textContent = 'Comments (0)';
+  } else {
     title.textContent = `Comments (${comments})`;
   }
-}
+};
 const getComments = async (itemID) => {
+  const title = document.getElementById('comment-title');
   const commentList = document.querySelector('.comment-container');
   let refreshNewComment = await getComment(itemID);
-  
   try {
     if (Array.isArray(refreshNewComment)) {
-      commentList.innerHTML = ''; 
-      let numberOfComments = refreshNewComment.length;      
+      commentList.innerHTML = '';
+      const numberOfComments = refreshNewComment.length;
       refreshNewComment.forEach((rnc) => {
         const newCommentx = document.createElement('li');
-        
         newCommentx.className = 'oneComment';
         newCommentx.innerHTML = `
         <p class="text-gray-400 text-xs">${rnc.creation_date} - ${rnc.username}</p>
-        <p class="text-white">${rnc.comment}</p>`
-
+        <p class="text-white">${rnc.comment}</p>`;
         commentList.appendChild(newCommentx);
-        
-        if(numberOfComments > 0) {
-          
+        if (numberOfComments > 0) {
           updateCount(numberOfComments);
-        }else{          
-          title.textContent = 'Comments (0)';    
+        } else {
+          title.textContent = 'Comments (0)';
         }
       });
-    }else {
+    } else {
       title.textContent = 'Comments (0)';
     }
   } catch (error) {
