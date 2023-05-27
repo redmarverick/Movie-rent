@@ -19,7 +19,7 @@ export function createMovieElement(movieData, itemId, toggleLike) {
   infoContainer.className = 'flex';
 
   const imgElement = document.createElement('img');
-  imgElement.src = movieData.image.medium;
+  imgElement.src = movieData.image;
   imgElement.alt = movieData.name;
   imgElement.className = 'movie-image rounded-md';
   movieElement.appendChild(imgElement);
@@ -57,8 +57,9 @@ export function createMovieElement(movieData, itemId, toggleLike) {
   const commentsButton = document.createElement('button');
   commentsButton.className = 'bg-blue-800 text-white py-2 px-4 rounded-md mt-2 mx-auto';
   commentsButton.textContent = 'Comments';
+  commentsButton.id = `Comments-${itemId}`;
   buttonContainer.appendChild(commentsButton);
-  commentsButton.addEventListener('click', () => popupWins(moviesContainer));
+  commentsButton.addEventListener('click', () => popupWins(moviesContainer, movieData));
 
   movieElement.appendChild(buttonContainer);
 

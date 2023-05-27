@@ -1,9 +1,53 @@
 import { createMovieElement } from './movieUtils.js';
-import './index.css';
 
 export const moviesData = {
   movieIndex: ['169', '82', '431', '1824', '28276', '41007', '11538', '38052', '43031', '15299'],
   likes: [],
+  comments: [{
+    date: '2023-05-28',
+    name: 'John Doe',
+    comment: 'This movie is fantastic!',
+  },{
+    date: '2023-05-28',
+    name: 'John Doe',
+    comment: 'This movie is fantastic!',
+  },{
+    date: '2023-05-28',
+    name: 'John Doe',
+    comment: 'This movie is fantastic!',
+  },{
+    date: '2023-05-28',
+    name: 'John Doe',
+    comment: 'This movie is fantastic!',
+  },{
+    date: '2023-05-28',
+    name: 'John Doe',
+    comment: 'This movie is fantastic!',
+  },{
+    date: '2023-05-28',
+    name: 'John Doe',
+    comment: 'This movie is fantastic!',
+  },{
+    date: '2023-05-28',
+    name: 'John Doe',
+    comment: 'This movie is fantastic!',
+  },{
+    date: '2023-05-28',
+    name: 'John Doe',
+    comment: 'This movie is fantastic!',
+  },{
+    date: '2023-05-28',
+    name: 'John Doe',
+    comment: 'This movie is fantastic!',
+  },{
+    date: '2023-05-28',
+    name: 'John Doe',
+    comment: 'This movie is fantastic!',
+  },{
+    date: '2023-05-28',
+    name: 'John Doe',
+    comment: 'This movie is fantastic!',
+  }],
 };
 
 const appId = 's7btJtYhBZ65macF6zS3';
@@ -17,24 +61,22 @@ async function getMoviesData() {
     if (response.ok) {
       const data = await response.json();
 
-      // Update the existing likes in moviesData.likes
-      moviesData.likes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; // Set initial likes count to 0
+      // Initialize likes array with 0 values
+      moviesData.likes = Array(moviesData.movieIndex.length).fill(0);
 
-      for (let i = 0; i < moviesData.movieIndex.length; i += 1) {
-        const movieId = moviesData.movieIndex[i];
-        data.forEach((item) => {
-          for (let j = 0; j < moviesData.movieIndex.length; j += 1) {
-            if (item.item_id[j] === movieId) {
-              moviesData.likes[i] += item.likes;
-            }
+      data.forEach((item) => {
+        for (let i = 0; i < moviesData.movieIndex.length; i++) {
+          const movieId = moviesData.movieIndex[i];
+          if (item.item_id === movieId) {
+            moviesData.likes[i] = item.likes;
           }
-        });
-      }
+        }
+      });
     } else {
-      throw new Error('erro');
+      throw new Error('Error fetching likes data');
     }
   } catch (error) {
-    throw new Error('erro');
+    throw new Error('Error fetching likes data');
   }
 }
 
@@ -90,7 +132,20 @@ async function toggleLike(itemId) {
 async function fetchMovieData(movieId) {
   const response = await fetch(`https://api.tvmaze.com/shows/${movieId}`);
   const data = await response.json();
-  return data;
+  
+  const genres = data.genres.join(', ');
+
+  const movieData = {
+    id: data.id,
+    name: data.name,
+    image: data.image.medium,
+    genre: genres,
+    status: data.status,
+    premiered: data.premiered,
+    language: data.language,
+  };
+
+  return movieData;
 }
 
 function updateMovieDetails(movieId) {
