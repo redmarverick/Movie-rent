@@ -28,8 +28,8 @@ describe('item count test', () => {
   // first test
   test('returns 4 if we have 4 movies in the movies container', () => {
     const moveiItems = document.getElementById('moviesContainer');
-
-    expect(moveiItems.childElementCount).toBe(4)
+    console.log(moveiItems.textContent)
+    expect(countmovies()).toBe(4)
     
   });
 
