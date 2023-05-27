@@ -1,6 +1,5 @@
 import { postComment, getComment } from './api.js';
 
-
 const updateCount = (comments) => {
   const title = document.getElementById('comment-title');
   if (comments === undefined) {
