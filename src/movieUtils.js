@@ -2,7 +2,6 @@ import { moviesData } from './index.js';
 import popupWins from './popup.js';
 
 let index = 0;
-
 export function createMovieElement(movieData, itemId, toggleLike) {
   const movieElement = document.createElement('div');
   const moviesContainer = document.getElementById('moviesContainer');
