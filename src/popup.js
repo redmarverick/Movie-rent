@@ -1,30 +1,45 @@
 import { postComment, getComment } from './api.js';
-import countComments from './commentCounter.js';
 
 
-const updateCount = () => {
+const updateCount = (comments) => {
   const commentList = document.querySelector('.comment-container');
+  // console.log(comments);
   const title = document.getElementById('comment-title');
 
-  title.textContent = `Comments (${countComments(commentList)})`;
+  // title.textContent = `Comments (${countComments(commentList)})`;
+  if(comments === undefined) {
+    title.textContent = `Comments (0)`;
+  }else{
+    title.textContent = `Comments (${comments})`;
+  }
 }
 const getComments = async (itemID) => {
   const commentList = document.querySelector('.comment-container');
   let refreshNewComment = await getComment(itemID);
+  
   try {
     if (Array.isArray(refreshNewComment)) {
       commentList.innerHTML = ''; // clear the list before repopulating
+      let numberOfComments = refreshNewComment.length;
+      // title.textContent = `Comments (${refreshNewComment.length})`;
+      
       refreshNewComment.forEach((rnc) => {
         const newCommentx = document.createElement('li');
-
+        
         newCommentx.className = 'oneComment';
         newCommentx.innerHTML = `${rnc.username}: ${rnc.comment}`;
         commentList.appendChild(newCommentx);
+        
+        if(numberOfComments > 0) {
+          
+          updateCount(numberOfComments);
+        }else{          
+          title.textContent = 'Comments (0)';    
+        }
 
-        updateCount();
+
       });
-    }
-    else {
+    }else {
       title.textContent = 'Comments (0)';
     }
   } catch (error) {
