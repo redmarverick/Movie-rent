@@ -120,6 +120,14 @@ To run tests, run the following command:
 - Twitter: [@Nylbert Victor](https://twitter.com/MarverickRed)
 - LinkedIn: [Nylbert Victor](https://www.linkedin.com/in/nylbert-victor-397951120/)
 
+
+👤 ** Jiachun Xiang **
+
+- GitHub: https://github.com/mpa-mxiang
+- LinkedIn: https://www.linkedin.com/in/jiachun-lily-xiang-1b197213a/
+
+
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## 🔭 Future Features <a name="future-features"></a>
