@@ -1,4 +1,4 @@
-const { toggleLike } = require('../src/index.js');
+import 'movieUtils.js';
 
 describe('like test', () => {
   let counter;
