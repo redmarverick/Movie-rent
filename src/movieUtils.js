@@ -2,7 +2,6 @@ import { moviesData } from './index.js';
 import popupWins from './popup.js';
 
 let index = 0;
-
 export function createMovieElement(movieData, itemId, toggleLike) {
   const movieElement = document.createElement('div');
   const moviesContainer = document.getElementById('moviesContainer');
@@ -57,6 +56,7 @@ export function createMovieElement(movieData, itemId, toggleLike) {
   const commentsButton = document.createElement('button');
   commentsButton.className = 'bg-blue-800 text-white py-2 px-4 rounded-md mt-2 mx-auto';
   commentsButton.textContent = 'Comments';
+  commentsButton.id = `comments-${itemId}`;
   buttonContainer.appendChild(commentsButton);
   commentsButton.addEventListener('click', () => popupWins(moviesContainer, movieData.name, movieElement.id));
 

@@ -1,11 +1,9 @@
-
 const BASE_URL = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/';
 const POST_ID = 's7btJtYhBZ65macF6zS3';
 const URL = `${BASE_URL}${POST_ID}/comments`;
 
 // POST action: get scores from users
 export const postComment = async (data) => {
-  console.log(JSON.stringify(data));
   await fetch(URL, {
     method: 'POST',
     headers: {
