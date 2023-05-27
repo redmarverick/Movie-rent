@@ -3,10 +3,7 @@ import { postComment, getComment } from './api.js';
 
 const updateCount = (comments) => {
   const commentList = document.querySelector('.comment-container');
-  // console.log(comments);
   const title = document.getElementById('comment-title');
-
-  // title.textContent = `Comments (${countComments(commentList)})`;
   if(comments === undefined) {
     title.textContent = `Comments (0)`;
   }else{
@@ -19,15 +16,16 @@ const getComments = async (itemID) => {
   
   try {
     if (Array.isArray(refreshNewComment)) {
-      commentList.innerHTML = ''; // clear the list before repopulating
-      let numberOfComments = refreshNewComment.length;
-      // title.textContent = `Comments (${refreshNewComment.length})`;
-      
+      commentList.innerHTML = ''; 
+      let numberOfComments = refreshNewComment.length;      
       refreshNewComment.forEach((rnc) => {
         const newCommentx = document.createElement('li');
         
         newCommentx.className = 'oneComment';
-        newCommentx.innerHTML = `${rnc.username}: ${rnc.comment}`;
+        newCommentx.innerHTML = `
+        <p class="text-gray-400 text-xs">${rnc.creation_date} - ${rnc.username}</p>
+        <p class="text-white">${rnc.comment}</p>`
+
         commentList.appendChild(newCommentx);
         
         if(numberOfComments > 0) {
@@ -51,12 +49,14 @@ const createComment = (movieElementId) => {
   const formComment = document.getElementById('comments');
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
+    const createDate = new Date();
     const newName = formName.value;
     const newComment = formComment.value;
     const commentObj = {
       item_id: movieElementId,
       username: newName,
       comment: newComment,
+      creation_date: createDate,
     };
     formName.value = '';
     formComment.value = '';
@@ -83,7 +83,7 @@ const popupWins = (root, title, img, genre, status, premiered, lang, movieElemen
               <img class="md:h-72 h-64" src="${img}" alt="${title}" class="mr-4 w-">
               <div class="ml-3 bg-gray-900 rounded-lg w-full md:h-72 h-64 p-4 overflow-auto">
                 <h2 id="comment-title"></h2>
-                <ul class="comment-container w-2/3 bg-gray-900 rounded-lg p-4 overflow-auto">
+                <ul class="comment-container w-full bg-gray-900 rounded-lg p-4 overflow-auto">
                 </ul>
               </div>
           </div>
