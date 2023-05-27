@@ -15,16 +15,13 @@ describe('item count test', () => {
   </div>
   `;
   });
-
   afterEach(() => {
     document.body.innerHTML = '';
   });
-
   // first test
   test('returns 4 if we have 4 movies in the movies container', () => {
     expect(countmovies()).toBe(4);
   });
-
   // second test
   test('returns 0 when there are not movies in the container', () => {
     const moviesContainer = document.getElementById('moviesContainer');
