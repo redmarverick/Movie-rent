@@ -58,8 +58,8 @@ export function createMovieElement(movieData, itemId, toggleLike) {
   commentsButton.textContent = 'Comments';
   commentsButton.id = `comments-${itemId}`;
   buttonContainer.appendChild(commentsButton);
-  commentsButton.addEventListener('click', () => popupWins(moviesContainer, movieData.name, movieElement.id));
-
+  const genres = movieData.genres.join(', ');
+  commentsButton.addEventListener('click', () => popupWins(moviesContainer, movieData.name, movieData.image.medium, genres, movieData.status, movieData.premiered, movieData.language, movieElement.id));
   movieElement.appendChild(buttonContainer);
 
   heartIcon.addEventListener('click', () => toggleLike(itemId));
