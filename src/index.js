@@ -7,46 +7,6 @@ export const moviesData = {
     date: '2023-05-28',
     name: 'John Doe',
     comment: 'This movie is fantastic!',
-  },{
-    date: '2023-05-28',
-    name: 'John Doe',
-    comment: 'This movie is fantastic!',
-  },{
-    date: '2023-05-28',
-    name: 'John Doe',
-    comment: 'This movie is fantastic!',
-  },{
-    date: '2023-05-28',
-    name: 'John Doe',
-    comment: 'This movie is fantastic!',
-  },{
-    date: '2023-05-28',
-    name: 'John Doe',
-    comment: 'This movie is fantastic!',
-  },{
-    date: '2023-05-28',
-    name: 'John Doe',
-    comment: 'This movie is fantastic!',
-  },{
-    date: '2023-05-28',
-    name: 'John Doe',
-    comment: 'This movie is fantastic!',
-  },{
-    date: '2023-05-28',
-    name: 'John Doe',
-    comment: 'This movie is fantastic!',
-  },{
-    date: '2023-05-28',
-    name: 'John Doe',
-    comment: 'This movie is fantastic!',
-  },{
-    date: '2023-05-28',
-    name: 'John Doe',
-    comment: 'This movie is fantastic!',
-  },{
-    date: '2023-05-28',
-    name: 'John Doe',
-    comment: 'This movie is fantastic!',
   }],
 };
 
