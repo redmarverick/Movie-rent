@@ -1,5 +1,4 @@
 const countComments = (container) => {
-    const counter = Array.from(container.getElementsByClassName('comment-container'));
-    return counter.length;
+    return container.length;
   };
   export default countComments;
