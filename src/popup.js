@@ -67,7 +67,7 @@ const createComment = (movieElementId) => {
   });
 };
 
-const popupWins = (root, title, movieElementId) => {
+const popupWins = (root, title, img, movieElementId) => {
   if (root.querySelector('.popup-container')) { root.lastElementChild.remove(); }
   const modal = document.createElement('div');
   modal.className = 'popup-container';
@@ -75,8 +75,9 @@ const popupWins = (root, title, movieElementId) => {
   modal.innerHTML = `
       <div>
         <div class="modal-top">
-          <span class="close-icon bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"></span >
+          <span class="absolute top-4 right-4 text-white text-xl cursor-pointer close-icon bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"></span >
           <h1>${title}</h1>
+          <img>${img}</img>
         </div>
 
 
