@@ -32,6 +32,12 @@
 
 **Microverse Movie DataBase** is a project made to like, comment and reserve movies in the database, following the prerequisites of Microverse's JavaScript's capstone project.
 
+# Screens <a name="app-screen"></a>
+
+![image](https://github.com/redmarverick/MMDB/assets/16127046/915ef5da-584b-4755-9b50-250b277ece0f)
+![image](https://github.com/redmarverick/MMDB/assets/16127046/5e9d8f9a-308d-4b1c-9043-f17d47594b0d)
+
+
 ## 🛠 Built With <a name="built-with"></a>
 
 - HTML
